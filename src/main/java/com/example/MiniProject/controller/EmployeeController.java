@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.MiniProject.exception.ResourceNotFoundException;
 import com.example.MiniProject.model.Employee;
 import com.example.MiniProject.repository.EmployeeRepository;
+import com.example.MiniProject.service.ReportService;
 
 import jakarta.validation.Valid;
 
@@ -26,10 +27,11 @@ import jakarta.validation.Valid;
 public class EmployeeController {
 
     private final EmployeeRepository employeeRepository;
-
+    private final ReportService reportService;
     @Autowired
-    public EmployeeController(EmployeeRepository employeeRepository) {
+    public EmployeeController(EmployeeRepository employeeRepository, ReportService reportService) {
         this.employeeRepository = employeeRepository;
+        this.reportService = reportService;
     }
 
     // 1. Lấy danh sách nhân viên (CRUD)
@@ -71,6 +73,12 @@ public class EmployeeController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
         }
+    }
+    
+    @GetMapping("/stats/total")
+    public ResponseEntity<Long> getTotalEmployees() {
+        long total = reportService.getTotalEmployees();
+        return ResponseEntity.ok(total);
     }
     
 }

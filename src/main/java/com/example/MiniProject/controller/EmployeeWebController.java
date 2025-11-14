@@ -50,7 +50,7 @@ public class EmployeeWebController {
     public String showAddForm(Model model) {
         // Tạo một đối tượng Employee rỗng để binding dữ liệu [cite: 60]
         model.addAttribute("employee", new Employee());
-         model.addAttribute("departments", departmentRepository.findAll());
+        model.addAttribute("departments", departmentRepository.findAll());
         return "add-employee-form"; 
     }
     

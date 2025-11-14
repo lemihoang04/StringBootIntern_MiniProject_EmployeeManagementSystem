@@ -21,9 +21,16 @@
         </div>
 
         <div>
-            <label>Phòng ban (ID):</label>
-            <input type="text" th:field="*{department.id}" /> 
-        </div>
+    <label>Phòng ban:</label>
+    <select th:field="*{department.id}">
+        <option value="">-- Chọn Phòng ban --</option>
+        
+        <option th:each="dept : ${departments}" 
+                th:value="${dept.id}" 
+                th:text="${dept.name}">
+            </option>
+    </select>
+    </div>
 
         <button type="submit">Lưu</button>
     </form>
