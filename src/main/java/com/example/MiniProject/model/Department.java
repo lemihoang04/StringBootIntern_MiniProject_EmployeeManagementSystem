@@ -1,7 +1,14 @@
 package com.example.MiniProject.model;
 
-import jakarta.persistence.*;
 import java.util.Set;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "department")
@@ -40,7 +47,8 @@ public class Department {
 	public void setEmployees(Set<Employee> employees) {
 		this.employees = employees;
 	}
-
+	
+	public Department() {} 
 	public Department(Long id, String name, Set<Employee> employees) {
 		super();
 		this.id = id;
