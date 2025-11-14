@@ -1,7 +1,16 @@
 package com.example.MiniProject.model;
 
-import jakarta.persistence.*;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size; 
 @Entity
 @Table(name = "employee")
 public class Employee {
@@ -9,17 +18,22 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "Tên nhân viên không được để trống")
+    @Size(min = 2, message = "Tên phải có ít nhất 2 ký tự")
     private String name;
+
+    @NotEmpty(message = "Email không được để trống")
+    @Email(message = "Email không hợp lệ")
+    @Column(unique = true) 
     private String email;
 
-    // Thiết lập mối quan hệ n-1 (Many-to-One) với Department
     @ManyToOne
-    @JoinColumn(name = "department_id", nullable = false) // Tên cột khóa ngoại trong bảng employee
-    private Department department; // Tham chiếu đến đối tượng Department
+    @JoinColumn(name = "department_id", nullable = false)
+    private Department department;
     
-	public Employee(Long id, String name, String email, Department department) {
+    public Employee() {} 
+	public Employee(String name, String email, Department department) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.department = department;
@@ -57,6 +71,5 @@ public class Employee {
 		this.department = department;
 	}
 
-    // Getters và Setters (Bạn nên tự thêm vào hoặc dùng Lombok)
     
 }
